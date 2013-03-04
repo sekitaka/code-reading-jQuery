@@ -94,6 +94,7 @@ var
 	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
 
 	// JSON RegExp
+    // JSONバリデート用の正規表現
 	rvalidchars = /^[\],:{}\s]*$/,
 	rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g,
 	rvalidescape = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g,
@@ -104,12 +105,15 @@ var
 	rdashAlpha = /-([\da-z])/gi,
 
 	// Used by jQuery.camelCase as callback to replace()
+    // jQuery.camelCaseのコールバックとして使用
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	},
 
 	// The ready event handler
+    // dom ready のイベントリスナー
 	completed = function( event ) {
+//        console.log(event.type) ;
 
 		// readyState === "complete" is good enough for us to call the dom ready in oldIE
 		if ( document.addEventListener || event.type === "load" || document.readyState === "complete" ) {
@@ -118,6 +122,7 @@ var
 		}
 	},
 	// Clean-up method for dom ready events
+    // dom ready のイベントをクリーン
 	detach = function() {
 		if ( document.addEventListener ) {
 			document.removeEventListener( "DOMContentLoaded", completed, false );
@@ -914,6 +919,7 @@ jQuery.extend({
 });
 
 jQuery.ready.promise = function( obj ) {
+    // readyListが登録されていなければ実施
 	if ( !readyList ) {
 
 		readyList = jQuery.Deferred();
@@ -926,14 +932,18 @@ jQuery.ready.promise = function( obj ) {
 			setTimeout( jQuery.ready );
 
 		// Standards-based browsers support DOMContentLoaded
+        // DOMContentLoaded をサポートしてる一般的なブラウザの場合
 		} else if ( document.addEventListener ) {
 			// Use the handy event callback
+            // completedをイベントリスナとして登録
 			document.addEventListener( "DOMContentLoaded", completed, false );
 
 			// A fallback to window.onload, that will always work
+            // window load時にも登録
 			window.addEventListener( "load", completed, false );
 
 		// If IE event model is used
+        // IE用の対応
 		} else {
 			// Ensure firing before onload, maybe late but safe also for iframes
 			document.attachEvent( "onreadystatechange", completed );
