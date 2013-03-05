@@ -198,6 +198,7 @@ jQuery.fn = jQuery.prototype = {
 					return this;
 
 				// HANDLE: $(#id)
+                // id指定のセレクタ
 				} else {
 					elem = document.getElementById( match[2] );
 
@@ -249,14 +250,18 @@ jQuery.fn = jQuery.prototype = {
 
 		return jQuery.makeArray( selector, this );
 	},
+    // init END
 
 	// Start with an empty selector
 	selector: "",
 
 	// The default length of a jQuery object is 0
+    // jQuery オブジェクトのデフォルトのlengthプロパティは0
 	length: 0,
 
 	// The number of elements contained in the matched element set
+    // マッチしたエレメントの個数を返す
+    // $('input').size() のように使用
 	size: function() {
 		return this.length;
 	},
@@ -267,6 +272,7 @@ jQuery.fn = jQuery.prototype = {
 
 	// Get the Nth element in the matched element set OR
 	// Get the whole matched element set as a clean array
+    // マッチしたエレメントのnum番目を取得する
 	get: function( num ) {
 		return num == null ?
 
@@ -310,10 +316,12 @@ jQuery.fn = jQuery.prototype = {
 		return this.pushStack( core_slice.apply( this, arguments ) );
 	},
 
+    // 複数マッチしたうち１つ目の要素を取得
 	first: function() {
 		return this.eq( 0 );
 	},
 
+    // 複数マッチしたうち末尾の要素を取得
 	last: function() {
 		return this.eq( -1 );
 	},
